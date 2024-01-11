@@ -7,3 +7,5 @@ transformers
 sentencepiece
 tokenizers
 wandb
+streamlit
+streamlit_chat

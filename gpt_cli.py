@@ -3,6 +3,7 @@ import platform
 import torch
 from threading import Thread
 from transformers import AutoTokenizer, AutoModelForCausalLM, TextIteratorStreamer
+import config
 
 
 def load_model(model_name):
@@ -120,8 +121,7 @@ def question_to_answer(model, tokenizer, question, history):
     return generated_text
 
 
-model_path = "D:\Study\MedicalChatGPT\model_saved\MedicalGPT-7B"
-model, tokenizer = load_model(model_path)
+model, tokenizer = load_model(config.model_path)
 
 
 if __name__ == "__main__":
