@@ -48,11 +48,11 @@ def chat_click():
 
         with container:
             for i in range(0, len(st.session_state["generated"]), 1):
-                st.chat_message(name="user").write(st.session_state["past"][i])
-                st.chat_message(name="ai").write(st.session_state["generated"][i])
+                st.chat_message(name="user", avatar="./images/avatar/user.png").write(st.session_state["past"][i])
+                st.chat_message(name="ai", avatar="./images/avatar/ai.png").write(st.session_state["generated"][i])
 
-            user_message = st.chat_message(name="user")
-            gpt_message = st.chat_message(name="ai")
+            user_message = st.chat_message(name="user", avatar="./images/avatar/user.png")
+            gpt_message = st.chat_message(name="ai", avatar="./images/avatar/ai.png")
 
             user_message.write(question)
 
