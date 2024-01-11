@@ -44,7 +44,7 @@ def run_console(model, tokenizer):
     os_name = platform.system()
     clear_command = 'cls' if os_name == 'Windows' else 'clear'
     history = []
-    print("医疗GPT: 你好，我是一个解答医疗健康问题的大模型，目前处于测试阶段，请以医嘱为准。请问有什么可以帮到您？输入 clear 清空对话历史，stop 终止程序")
+    print("医疗GPT: 您好，我是一个解答医疗健康问题的大模型，目前处于测试阶段，请以医嘱为准。请问有什么可以帮到您？输入 clear 清空对话历史，stop 终止程序")
     while True:
         query = input("\n用户：")
         if query == "stop":
@@ -52,7 +52,7 @@ def run_console(model, tokenizer):
         if query == "clear":
             history = []
             os.system(clear_command)
-            print("医疗GPT: 你好，我是一个解答医疗健康问题的大模型，目前处于测试阶段，请以医嘱为准。请问有什么可以帮到您？输入 clear 清空对话历史，stop 终止程序")
+            print("医疗GPT: 您好，我是一个解答医疗健康问题的大模型，目前处于测试阶段，请以医嘱为准。请问有什么可以帮到您？输入 clear 清空对话历史，stop 终止程序")
             continue
         
         print(f"医疗GPT: ", end="", flush=True)
@@ -120,8 +120,10 @@ def question_to_answer(model, tokenizer, question, history):
     return generated_text
 
 
+model_path = "D:\Study\MedicalChatGPT\model_saved\MedicalGPT-7B"
+model, tokenizer = load_model(model_path)
+
+
 if __name__ == "__main__":
-    model_path = "D:\Study\MedicalChatGPT\model_saved\MedicalGPT-7B"
-    model, tokenizer = load_model(model_path)
     run_console(model, tokenizer)
     # question_to_answer(model, tokenizer, "您好", [])
