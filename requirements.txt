@@ -1,0 +1,9 @@
+# python version 3.9
+accelerate
+deepspeed
+numpy
+torch==2.1.0_cu121
+transformers
+sentencepiece
+tokenizers
+wandb
