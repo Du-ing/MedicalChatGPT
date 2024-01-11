@@ -1,9 +1,7 @@
 import streamlit as st
 from streamlit_chat import message
+from gpt_cli import *
 
-if 'prompts' not in st.session_state:
-    st.session_state['prompts'] = [
-        {"role": "system", "content": "您是一个乐于助人的助手。尽量简洁明了地回答问题，并带有一点幽默表达。"}]
 
 if 'generated' not in st.session_state:
     st.session_state['generated'] = []
@@ -11,40 +9,42 @@ if 'generated' not in st.session_state:
 if 'past' not in st.session_state:
     st.session_state['past'] = []
 
+if 'history' not in st.session_state:
+    st.session_state['history'] = []
+
 if 'user' not in st.session_state:
     st.session_state['user'] = ""
 
 
-def generate_response(prompt):
-    st.session_state['prompts'].append({"role": "user", "content": prompt})
-    message = "我是医疗机器人"
-    return message
+def generate_response(question, history):
+    answer = question_to_answer(model, tokenizer, question, history)
+    return answer
 
 
 def end_click():
-    st.session_state['prompts'] = [
-        {"role": "system", "content": "您是一个乐于助人的助手。尽量简洁明了地回答问题，并带有一点幽默表达。"}]
     st.session_state['past'] = []
     st.session_state['generated'] = []
+    st.session_state['history'] = []
     st.session_state['user'] = ""
 
 
 def chat_click():
-    if st.session_state['user'] != '':
+    if st.session_state['user'] != "":
         chat_input = st.session_state['user']
-        output = generate_response(chat_input)
+        history = st.session_state['history']
+        output = generate_response(chat_input, history)
         st.session_state['past'].insert(0, chat_input)
         st.session_state['generated'].insert(0, output)
-        st.session_state['prompts'].append({"role": "assistant", "content": output})
+        st.session_state['history'].append((chat_input, output))
         st.session_state['user'] = ""
 
 
-st.sidebar.title("医疗机器人")
-st.header("医疗机器人", divider="rainbow")
+st.sidebar.title("医疗GPT")
+st.header("医疗GPT", divider="rainbow")
 
 c1, c2, c3 = st.columns([6, 1, 1])
 with c1:
-    user_input = st.text_input("提问:", placeholder="请输入要咨询的问题", key="user", label_visibility="collapsed")
+    user_input = st.text_input("提问", placeholder="请输入要咨询的问题", key="user", label_visibility="collapsed")
 with c2:
     chat_button = st.button("发送", on_click=chat_click, type="primary")
 with c3:

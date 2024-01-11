@@ -84,7 +84,7 @@ def run_console(model, tokenizer):
         history = history + [(query, generated_text)]
 
 
-def question_to_answer(model, tokenizer, question):
+def question_to_answer(model, tokenizer, question, history):
     sep = tokenizer.convert_ids_to_tokens(tokenizer.eos_token_id)
     # print(sep)
 
@@ -96,8 +96,6 @@ def question_to_answer(model, tokenizer, question):
                   'temperature': 0.3,
                   'repetition_penalty': 1.1}
 
-    history = []
-
     prompt = generate_prompt(question, history)
     inputs = tokenizer([prompt], return_tensors="pt")
     inputs = inputs.to(model.device)
@@ -108,7 +106,7 @@ def question_to_answer(model, tokenizer, question):
     thread = Thread(target=model.generate, kwargs=generation_kwargs)
     thread.start()
 
-    generated_text = "医疗GPT: "
+    generated_text = ""
 
     for new_text in streamer:
         if sep in new_text:
@@ -120,12 +118,11 @@ def question_to_answer(model, tokenizer, question):
         for char in new_text:
             generated_text += char
             print(char, end='', flush=True)
-    history = history + [(question, generated_text)]
     return generated_text
-
 
 
 if __name__ == "__main__":
     model_path = "D:\Study\MedicalChatGPT\model_saved\MedicalGPT-7B"
     model, tokenizer = load_model(model_path)
-    run_console(model, tokenizer)
+    # run_console(model, tokenizer)
+    # question_to_answer(model, tokenizer, "您好", [])
