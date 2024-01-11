@@ -2,7 +2,7 @@
 accelerate
 deepspeed
 numpy
-torch==2.1.0_cu121
+torch==2.1.0+cu121
 transformers
 sentencepiece
 tokenizers

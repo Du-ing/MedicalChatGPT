@@ -1,6 +1,6 @@
 import streamlit as st
 from streamlit_chat import message
-from gpt_cli import *
+from gpt_cli import model, tokenizer, question_to_answer
 
 
 if 'generated' not in st.session_state:

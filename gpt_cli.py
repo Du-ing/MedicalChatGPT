@@ -3,8 +3,6 @@ import platform
 import torch
 from threading import Thread
 from transformers import AutoTokenizer, AutoModelForCausalLM, TextIteratorStreamer
-import argparse
-from transformers.generation.utils import GenerationConfig
 
 
 def load_model(model_name):
@@ -118,11 +116,12 @@ def question_to_answer(model, tokenizer, question, history):
         for char in new_text:
             generated_text += char
             print(char, end='', flush=True)
+        print("\n")
     return generated_text
 
 
 if __name__ == "__main__":
     model_path = "D:\Study\MedicalChatGPT\model_saved\MedicalGPT-7B"
     model, tokenizer = load_model(model_path)
-    # run_console(model, tokenizer)
+    run_console(model, tokenizer)
     # question_to_answer(model, tokenizer, "您好", [])
