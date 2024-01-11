@@ -31,7 +31,7 @@ def remove_overlap(str1, str2):
     return str2 
 
 
-def main(model, tokenizer):
+def run_console(model, tokenizer):
     sep = tokenizer.convert_ids_to_tokens(tokenizer.eos_token_id)
     # print(sep)
     
@@ -128,4 +128,4 @@ def question_to_answer(model, tokenizer, question):
 if __name__ == "__main__":
     model_path = "D:\Study\MedicalChatGPT\model_saved\MedicalGPT-7B"
     model, tokenizer = load_model(model_path)
-    main(model, tokenizer)
+    run_console(model, tokenizer)
